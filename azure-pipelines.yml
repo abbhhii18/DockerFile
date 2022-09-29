@@ -1,10 +1,4 @@
 # Docker
-- task: Docker@2
-  inputs:
-    containerRegistry: 'hub connection'
-    command: 'buildAndPush'
-    Dockerfile: 'Dockerfile'
-    buildContext: 
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
@@ -23,24 +17,9 @@ stages:
   jobs:  
   - job: Build
     displayName: Build and push Docker image
-    steps:
-    - task: Docker@1
-      displayName: 'Build the Docker image'
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Docker Hub'
-        command: 'Build an image'
-        dockerFile: '**/Dockerfile'
-        imageName: '$(ImageName)'
-        includeLatestTag: true
-        useDefaultContext: false
-        buildContext: '.'
-     
-    - task: Docker@1
-      displayName: 'Push the Docker image to Dockerhub'
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Docker Hub'
-        command: 'Push an image'
-        imageName: '$(ImageName)'
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+- task: Docker@2
+  inputs:
+    containerRegistry: 'hub connection'
+    command: 'buildAndPush'
+    Dockerfile: 'Dockerfile'
+    buildContext: 
