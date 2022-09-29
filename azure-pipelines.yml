@@ -17,7 +17,7 @@ stages:
   jobs:  
   - job: Build
     displayName: Build and push Docker image
-- task: Docker@2
+  - task: Docker@2
   inputs:
     containerRegistry: 'hub connection'
     command: 'buildAndPush'
